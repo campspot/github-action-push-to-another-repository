@@ -5,11 +5,9 @@ Used to push generated files from a directory from Git Action step into another 
 ## Use Case: push compiled hugo sites to other hugo sites so that they become sub-sections
 
 E.g.
-Repository `your-site` contains all the HUGO static site raw files with a custom template. 
-
-Repository `site-sub-section` contains a special section of `your-site` that uses a different HUGO template. 
-
-You can compile the static website in `site-sub-section` and push it to `your-site` which in turns gets built by a **CI/CD** pipeline (GitHub or Third Party).
+1. Repository `your-site` contains all the HUGO static site raw files with a custom template. 
+2. Repository `site-sub-section` contains a special section of `your-site` that uses a different HUGO template. 
+3. You can compile the static website in `site-sub-section` and push it to `your-site` which in turns gets built by a **CI/CD** pipeline (GitHub or Third Party).
 
 ## Inputs
 ### `source-directory` (argument)
