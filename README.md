@@ -1,17 +1,22 @@
 # github-action-push-to-another-repository
 
-Used to push generated files from a directory from Git Action step into another repository on Github. By design it deletes the files from the destination directory as it is meant to "publish" a set generated files.
+Used to push generated files from a directory from Git Action step into another repository on Github. This is a slight modification to the original action by [@cpina](https://github.com/cpina/github-action-push-to-another-repository), by design it requires that you specify a target directory on the destination repository. It will not delete any files on the destination repo.
+
+## Use Case: push compiled hugo sites to other hugo sites so that they become sub-sections
 
 E.g.
-Repository pandoc-test contains Markdown and a Git Action to generate, using Pandoc, an output: HTML, PDF, odt, epub, etc.
+Repository `your-site` contains all the HUGO static site raw files with a custom template. 
 
-Repository pandoc-test-output: contains only the generated files from the first Git Action. Pushed here with github-action-push-to-another-repository
+Repository `site-sub-section` contains a special section of `your-site` that uses a different HUGO template. 
 
-And pandoc-test-output can have Git Pages to give access to the files (or just links to the raw version of the files)
+You can compile the static website in `site-sub-section` and push it to `your-site` which in turns gets built by a **CI/CD** pipeline (GitHub or Third Party).
 
 ## Inputs
 ### `source-directory` (argument)
 From the repository that this Git Action is executed the directory that contains the files to be pushed into the repository.
+
+### `target-directory` (argument)
+This is the directory in the destination repository where the contents of `source-directory` will be copied into.
 
 ### `destination-github-username` (argument)
 For the repository `https://github.com/cpina/push-to-another-repository-output` is `cpina`. It's also used for the `Author:` in the generated git messages.
@@ -53,22 +58,12 @@ Then make the token available to the Github Action following the steps:
 ## Example usage
 ```yaml
       - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@master
+        uses: darkquasar/github-action-push-to-another-repository@master
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: 'output'
-          destination-github-username: 'cpina'
-          destination-repository-name: 'pandoc-test-output'
-          user-email: carles3@pina.cat
+          source-directory: 'public'
+          destination-github-username: 'darkquasar'
+          destination-repository-name: 'your-site'
+          user-email: darkquasar@quasarfun.com
 ```
-
-Working example:
-
-https://github.com/cpina/push-to-another-repository-example/blob/master/.github/workflows/ci.yml
-
-It generates files from:
-https://github.com/cpina/push-to-another-repository-example
-
-To:
-https://github.com/cpina/push-to-another-repository-output
