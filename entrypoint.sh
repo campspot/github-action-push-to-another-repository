@@ -28,8 +28,8 @@ git clone --single-branch --branch "$TARGET_BRANCH" "https://$API_TOKEN_GITHUB@g
 ls -la "$CLONE_DIR"
 
 echo "[+] Deleting files from $DESTINATION_DIRECTORY in git repo $DESTINATION_REPOSITORY_NAME"
-rm -rf "$CLONE_DIR/$DESTINATION_DIRECTORY/*.*"
-echo "[+] Veryfing contents of directory that will be pushed"
+rm -rfv "$CLONE_DIR/$DESTINATION_DIRECTORY/*"
+echo "[+] Veryfing that the directory that will be pushed is EMPTY"
 ls -la "$CLONE_DIR/$DESTINATION_DIRECTORY"
 
 echo "[+] Copying contents of source repository folder $SOURCE_DIRECTORY to folder $DESTINATION_DIRECTORY in git repo $DESTINATION_REPOSITORY_NAME"
